@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   DESIGN TOKENS
+   The palette below is fixed by the project brief. Inter carries all
+   narrative UI text; IBM Plex Mono is reserved for data readouts
+   (scores, percentages, technical labels) to give the exhibit a
+   "lab instrument" register distinct from its explanatory prose.
+--------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  --color-bg: #09090b;
+  --color-bg-raised: #0f0f12;
+  --color-card: #18181b;
+  --color-card-hover: #202024;
+  --color-border: #27272a;
+  --color-border-soft: #1f1f23;
+
+  --color-ink: #f4f4f5;
+  --color-ink-dim: #a1a1aa;
+  --color-ink-faint: #71717a;
+
+  --color-brain: #8b5cf6;
+  --color-brain-soft: #8b5cf633;
+  --color-llm: #3b82f6;
+  --color-llm-soft: #3b82f633;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-dash: dash 1.2s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -24; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+/* Light-mode override. The brief's primary direction is dark (museum-at-night
+   exhibit lighting); light mode swaps the same token set for a "gallery by
+   day" reading rather than a separate design. */
+html.light {
+  color-scheme: light;
+  --color-bg: #fafafa;
+  --color-bg-raised: #f4f4f5;
+  --color-card: #ffffff;
+  --color-card-hover: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-border-soft: #ececee;
+
+  --color-ink: #18181b;
+  --color-ink-dim: #52525b;
+  --color-ink-faint: #71717a;
+}
+
+html.light body {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 10%, rgba(59, 130, 246, 0.05), transparent);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.10), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 10%, rgba(59, 130, 246, 0.08), transparent);
+  background-attachment: fixed;
+}
+
+/* Faint dot-grid texture used behind the main comparison exhibit */
+.bg-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+::selection {
+  background: var(--color-brain);
+  color: white;
+}
+
+/* Visible keyboard focus everywhere, styled to match the exhibit */
+:focus-visible {
+  outline: 2px solid var(--color-llm);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+.font-mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Respect reduced-motion preferences project-wide */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
