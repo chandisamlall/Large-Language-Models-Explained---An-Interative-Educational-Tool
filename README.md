@@ -1,10 +1,21 @@
-# The Human Brain vs. Large Language Models
+# The Human Brain &  Large Language Models
+
+> **Research question:** How can people learn where analogies between
+> brains and LLMs hold, and where they mislead?
 
 An interactive, museum-exhibit-style web app that maps human cognitive
-functions to their closest analogues in large language models — and is
+functions to their closest analogues in large language models, and is
 just as deliberate about showing where each analogy breaks down. Built to
 improve AI literacy and reduce anthropomorphism, not to make the
 comparison look neater than it is.
+
+[▶ Live demo]([your GitHub Pages URL]) · [Report]([report URL, optional])
+· **Cohort:** [Fall 2026] · **Theme:** Research · **License:** [MIT]
+
+**Topics:** #AIliteracy #Anthropomorphism #Pedagogy #Opendata
+
+*Part of the [NYU Ethical Tech CoLab](https://ethical-tech-colab.github.io/website/portfolio/) portfolio.
+
 
 Two smaller standalone demos extend the core exhibit:
 
