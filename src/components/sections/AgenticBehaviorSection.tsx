@@ -26,7 +26,7 @@ const COMPARISON_ROWS = [
 
 export function AgenticBehaviorSection() {
   return (
-    <section id="agentic-behavior" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-24 sm:py-32">
+    <section id="agentic-behavior" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Beyond Reactive Generation"
         title="Standard AI vs. Agentic AI"

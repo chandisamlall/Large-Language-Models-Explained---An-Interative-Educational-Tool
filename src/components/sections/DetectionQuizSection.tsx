@@ -21,7 +21,7 @@ export function DetectionQuizSection() {
   const reset = () => setAnswers({})
 
   return (
-    <section id="quiz" className="border-y border-border-soft bg-bg-raised/40 py-24 sm:py-32">
+    <section id="quiz" className="border-y border-border-soft bg-bg-raised/40 py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading

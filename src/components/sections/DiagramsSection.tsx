@@ -7,7 +7,7 @@ import { ArchitectureFlowDiagram } from '../diagrams/ArchitectureFlowDiagram'
 
 export function DiagramsSection() {
   return (
-    <section id="diagrams" className="border-y border-border-soft bg-bg-raised/40 py-24 sm:py-32">
+    <section id="diagrams" className="border-y border-border-soft bg-bg-raised/40 py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Under the Hood"

@@ -12,7 +12,7 @@ const STATEMENTS = [
 
 export function LimitationsSection() {
   return (
-    <section id="limitations" className="mx-auto max-w-4xl px-6 py-24 sm:py-32">
+    <section id="limitations" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Read This Part"
         title="What this exhibit is not saying"

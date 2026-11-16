@@ -3,7 +3,7 @@ import { TransformerExplorer } from '../explainer/TransformerExplorer'
 
 export function TransformerExplainerSection() {
   return (
-    <section id="predict" className="mx-auto max-w-4xl px-6 py-24 sm:py-32">
+    <section id="predict" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Interactive Demo"
         title="How does it guess the next word?"

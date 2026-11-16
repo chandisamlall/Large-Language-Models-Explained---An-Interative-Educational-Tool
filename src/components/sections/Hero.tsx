@@ -31,9 +31,9 @@ export function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-4xl text-balance text-4xl font-semibold tracking-tight text-ink sm:text-6xl"
+        className="relative max-w-4xl text-balance text-4xl font-bold tracking-tight text-ink sm:text-6xl"
       >
-        The <span className="text-brain">Human Brain</span> vs.{' '}
+        The <span className="text-brain">Human Brain</span> and{' '}
         <span className="text-llm">Large Language Models</span>
       </motion.h1>
 
@@ -43,7 +43,7 @@ export function Hero() {
         transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
         className="relative mt-6 max-w-xl text-balance text-lg text-ink-dim"
       >
-        Understanding where the comparisons help — and where they mislead.
+        Understanding where the comparisons help - and where they mislead.
       </motion.p>
 
       <motion.div

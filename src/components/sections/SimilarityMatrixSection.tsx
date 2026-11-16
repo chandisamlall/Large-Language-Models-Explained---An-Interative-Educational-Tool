@@ -46,7 +46,7 @@ export function SimilarityMatrixSection() {
   }
 
   return (
-    <section id="matrix" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+    <section id="matrix" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
           eyebrow="All Fourteen, At Once"

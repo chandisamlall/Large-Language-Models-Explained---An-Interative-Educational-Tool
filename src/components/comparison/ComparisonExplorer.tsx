@@ -52,7 +52,7 @@ export function ComparisonExplorer() {
   const hasActive = activeHumanIds.length > 0
 
   return (
-    <section id="explore" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+    <section id="explore" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Interactive Exhibit"
         title="Explore the comparison"

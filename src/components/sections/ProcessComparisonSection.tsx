@@ -86,7 +86,7 @@ export function ProcessComparisonSection() {
   }
 
   return (
-    <section id="process" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+    <section id="process" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
           eyebrow="Play It Through"

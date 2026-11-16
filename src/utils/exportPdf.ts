@@ -13,7 +13,7 @@ export function exportMatrixToPdf() {
   const doc = new jsPDF()
 
   doc.setFontSize(16)
-  doc.text('The Human Brain vs. Large Language Models', 14, 18)
+  doc.text('The Human Brain and Large Language Models', 14, 18)
   doc.setFontSize(10)
   doc.setTextColor(120)
   doc.text('Similarity matrix \u2014 exported for reference. Analogies are educational simplifications.', 14, 25)

@@ -3,7 +3,7 @@ import { MemoryExplorer } from '../memory/MemoryExplorer'
 
 export function MemoryComparisonSection() {
   return (
-    <section id="memory" className="mx-auto max-w-4xl px-6 py-24 sm:py-32">
+    <section id="memory" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Interactive Demo"
         title="Short-term vs. long-term memory"

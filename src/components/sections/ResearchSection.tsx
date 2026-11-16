@@ -7,7 +7,7 @@ const ICONS = [MessagesSquare, Brain, Eye, Drama, Users]
 
 export function ResearchSection() {
   return (
-    <section id="research" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+    <section id="research" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="The Human Side"
         title="Why we do this in the first place"

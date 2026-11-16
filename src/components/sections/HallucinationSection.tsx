@@ -17,7 +17,7 @@ export function HallucinationSection() {
   const [expandedId, setExpandedId] = useState<string | null>(hallucinationCards[0]?.id ?? null)
 
   return (
-    <section id="hallucination" className="mx-auto max-w-4xl px-6 py-24 sm:py-32">
+    <section id="hallucination" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Where It Breaks"
         title="Hallucination vs. confabulation"
