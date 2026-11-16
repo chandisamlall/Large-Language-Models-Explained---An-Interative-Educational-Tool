@@ -6,6 +6,7 @@ import { ComparisonExplorer } from './components/comparison/ComparisonExplorer'
 import { DiagramsSection } from './components/sections/DiagramsSection'
 import { TransformerExplainerSection } from './components/sections/TransformerExplainerSection'
 import { ProcessComparisonSection } from './components/sections/ProcessComparisonSection'
+import { AgenticBehaviorSection } from './components/sections/AgenticBehaviorSection'
 import { SimilarityMatrixSection } from './components/sections/SimilarityMatrixSection'
 import { MythVsRealitySection } from './components/sections/MythVsRealitySection'
 import { DetectionQuizSection } from './components/sections/DetectionQuizSection'
@@ -33,6 +34,7 @@ export default function App() {
             <DiagramsSection />
             <TransformerExplainerSection />
             <ProcessComparisonSection />
+            <AgenticBehaviorSection />
             <SimilarityMatrixSection />
             <MythVsRealitySection />
             <DetectionQuizSection />

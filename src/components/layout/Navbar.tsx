@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: '#diagrams', label: 'Diagrams' },
   { href: '#predict', label: 'Predict' },
   { href: '#process', label: 'Process' },
+  { href: '#agentic-behavior', label: 'Agentic Behavior' },
   { href: '#matrix', label: 'Matrix' },
   { href: '#myths', label: 'Myths' },
   { href: '#quiz', label: 'Quiz' },
