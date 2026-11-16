@@ -7,14 +7,16 @@ interface TooltipProps {
   content: string
   children: ReactNode
   side?: 'top' | 'bottom'
+  align?: 'start' | 'center' | 'end'
   className?: string
 }
 
 /** Wraps a trigger element with a small floating tooltip that responds to
  *  both mouse hover and keyboard focus, so it doesn't rely on hover alone. */
-export function Tooltip({ content, children, side = 'top', className }: TooltipProps) {
+export function Tooltip({ content, children, side = 'top', align = 'center', className }: TooltipProps) {
   const [open, setOpen] = useState(false)
   const id = useId()
+  const alignClass = align === 'start' ? 'left-0' : align === 'end' ? 'right-0' : 'left-1/2 -translate-x-1/2'
 
   return (
     <span
@@ -35,8 +37,8 @@ export function Tooltip({ content, children, side = 'top', className }: TooltipP
             exit={{ opacity: 0, y: side === 'top' ? 4 : -4, scale: 0.97 }}
             transition={{ duration: 0.12 }}
             className={cn(
-              'pointer-events-none absolute z-50 w-56 rounded-lg border border-border bg-bg-raised px-3 py-2 text-xs leading-relaxed text-ink-dim shadow-xl',
-              side === 'top' ? 'bottom-full left-1/2 mb-2 -translate-x-1/2' : 'top-full left-1/2 mt-2 -translate-x-1/2',
+              'pointer-events-none absolute z-50 w-56 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-bg-raised px-3 py-2 text-xs leading-relaxed text-ink-dim shadow-xl',
+              side === 'top' ? `bottom-full mb-2 ${alignClass}` : `top-full mt-2 ${alignClass}`,
             )}
           >
             {content}
