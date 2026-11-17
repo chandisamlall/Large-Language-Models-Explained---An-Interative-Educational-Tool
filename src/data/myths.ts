@@ -5,50 +5,50 @@ export const mythCards: MythCard[] = [
     id: 'understands-me',
     myth: 'The AI understands me.',
     whyBelieved:
-      'Its replies track the meaning of what you wrote closely enough, sentence after sentence, that "understanding" feels like the only word that fits.',
+      'Its replies often track the context and intent of what you wrote well enough to support useful conversation.',
     whatActuallyHappens:
-      'The model computes statistical relationships between tokens, shaped by patterns across enormous amounts of text, and produces a continuation likely to fit your input.',
+      'A language model processes learned representations of the supplied input and generates text conditioned on that context. Some models can handle complex tasks; this alone does not settle what kind of understanding they have.',
     supportingExplanation:
-      'Coherent output can emerge from pattern-matching at massive scale without anything resembling comprehension the way a person experiences it. Fluency is evidence of a good next-token predictor, not proof of an inner grasp of meaning.',
+      '“Understanding” can mean successful task performance, human-like comprehension, or subjective grasp. Fluent replies provide evidence about behavior, but do not by themselves establish the latter two.',
   },
   {
     id: 'remembers-me',
     myth: 'The AI remembers me.',
     whyBelieved:
-      'Within a single conversation, it correctly refers back to things you said earlier \u2014 which feels exactly like being remembered.',
+      'A model can refer to earlier details when those details are included in the current input, which can feel like personal memory.',
     whatActuallyHappens:
-      'Everything it "recalls" is simply still present in the current context window. Once a conversation ends (or scrolls out of that window), none of it persists in the model itself.',
+      'The model can use information supplied in its context. Whether details persist across chats depends on the product: it may save and retrieve selected information externally.',
     supportingExplanation:
-      'Any cross-session memory you experience in a product comes from an external system storing and re-inserting your data \u2014 the model\u2019s weights are unchanged by talking to it.',
+      'A product can recall a preference without changing the base model weights. Context, retrieval, and model parameters are distinct parts of the system.',
   },
   {
     id: 'has-emotions',
     myth: 'The AI has emotions.',
     whyBelieved:
-      'Its text can sound enthusiastic, apologetic, or empathetic, and emotional language reliably triggers social responses in us.',
+      'Text that sounds warm, apologetic, or excited can invite the same social interpretations we use in conversation with people.',
     whatActuallyHappens:
-      'Emotional-sounding phrasing is generated because similar phrasing appeared in comparable contexts during training \u2014 it is a learned style, not a felt state.',
+      'A model can generate emotional language based on learned patterns, instructions, and context. The wording alone cannot establish a felt emotional state.',
     supportingExplanation:
-      'There is no body, hormone system, or subjective experience behind the words. The model has no wellbeing that could be improved or harmed by the conversation.',
+      'It is useful to distinguish the observable behavior from claims about inner experience. This exhibit does not treat conversational style as evidence that a system feels or has needs.',
   },
   {
     id: 'knows-what-saying',
-    myth: 'The AI knows what it is saying.',
+    myth: 'A fluent answer means the AI knows it is true.',
     whyBelieved:
-      'Responses are usually accurate and well-structured, which reads as evidence the system grasps the content it is producing.',
+      'Well-structured explanations can sound confident and informed, making accuracy easy to infer from style.',
     whatActuallyHappens:
-      'Each token is chosen because it was statistically likely given the preceding text \u2014 the process doesn\u2019t track truth, only plausibility.',
+      'Language models generate from learned patterns and the information available in context. A plausible answer may still be unsupported or wrong.',
     supportingExplanation:
-      'This is exactly why models can state falsehoods fluently and confidently: fluency and factual grounding are produced by different, only loosely related mechanisms.',
+      'Some systems use tools, sources, or verification steps, but those features must be part of the deployed system. Fluency by itself is not a fact-check.',
   },
   {
     id: 'wants-to-help',
     myth: 'The AI wants to help.',
     whyBelieved:
-      'Responses are often framed helpfully, phrased warmly, and oriented around solving the stated problem.',
+      'Many assistants are designed to respond helpfully and may be connected to agents that carry out multi-step tasks.',
     whatActuallyHappens:
-      'The model was trained \u2014 through examples and feedback \u2014 to produce responses that reliably score well against a "helpful" criterion, but it holds no persistent desire to do so.',
+      'Training and system instructions shape helpful behavior. An agent can pursue an assigned objective through tools, but that operational goal does not establish a subjective desire.',
     supportingExplanation:
-      'A want implies a stake in an outcome across time. Nothing in the architecture carries an ongoing motivation from one response to the next; each output is computed fresh.',
+      'When describing an agent, separate its configured task and system behavior from a claim that the model personally wants an outcome.',
   },
 ]

@@ -1,13 +1,12 @@
-# The Human Brain &  Large Language Models
+# The Human Brain and Large Language Models
 
 > **Research question:** How can people learn where analogies between
 > brains and LLMs hold, and where they mislead?
 
-An interactive, museum-exhibit-style web app that maps human cognitive
-functions to their closest analogues in large language models, and is
-just as deliberate about showing where each analogy breaks down. Built to
-improve AI literacy and reduce anthropomorphism, not to make the
-comparison look neater than it is.
+An interactive, museum-exhibit-style web app that explores selected
+functional comparisons between human cognition and large language models,
+including places where a text-only model has no close counterpart. Built
+to improve AI literacy and reduce anthropomorphism.
 
 [▶ Live demo]([your GitHub Pages URL]) · [Report]([report URL, optional])
 · **Cohort:** [Fall 2026] · **Theme:** Research · **License:** [MIT]
@@ -20,8 +19,8 @@ comparison look neater than it is.
 Two smaller standalone demos extend the core exhibit:
 
 - **Predict** — a simplified, three-step stand-in for how a model turns
-  a sentence into a guess at the next word (meaning → attention →
-  guess), loosely inspired by
+  a sentence into a guess at the next word (tokens → toy weighting →
+  candidate output), loosely inspired by
   [the Transformer Explainer](https://poloclub.github.io/transformer-explainer/)
   but with a hand-built toy predictor instead of a real running model.
 - **Memory** — short-term vs. long-term memory in humans, mapped to its
@@ -39,7 +38,6 @@ Two smaller standalone demos extend the core exhibit:
 - **Tailwind CSS v4** (via `@tailwindcss/vite`, config-free — tokens live in `src/index.css`)
 - **Framer Motion** for all animation/transitions
 - **lucide-react** for iconography
-- **jsPDF + jspdf-autotable** for the similarity-matrix PDF export (lazy-loaded)
 
 ## Getting started
 
@@ -56,16 +54,16 @@ npm run lint       # oxlint
 ```
 src/
 ├── data/               # Single source of truth — no comparison content lives in a component
-│   ├── types.ts         # Shared TypeScript types + the similarity→badge helper
+│   ├── types.ts         # Shared TypeScript types
 │   ├── nodes.ts          # The 14 human nodes (+ brain-diagram coordinates) and 11 LLM nodes
-│   ├── comparisons.ts    # The 14 human↔LLM comparisons: score, differences, myths, examples
+│   ├── comparisons.ts    # The 14 human↔LLM comparisons, differences, and examples
 │   ├── myths.ts           # "Myth vs. Reality" card content
 │   ├── quiz.ts             # Detection-exercise statements + correct classification
 │   ├── research.ts         # Why-we-anthropomorphize topic explanations
 │   ├── process.ts           # Step lists for the animated process walkthrough
 │   ├── transformerDemo.ts    # Toy next-word predictor for the Predict demo
 │   ├── memory.ts               # Short-term/long-term/agent-retrieval human↔LLM memory pairs
-│   └── hallucination.ts         # Hallucination↔confabulation pairs + proposed exhibit experiments
+│   └── hallucination.ts         # Error-pattern comparisons + research questions
 │
 ├── context/             # App-wide state, shared across every section
 │   ├── ComparisonContext.tsx   # Which node(s) are hovered/pinned — drives every highlight
@@ -80,34 +78,31 @@ src/
 │   ├── layout/                    # Navbar (nav links, search, theme toggle)
 │   └── sections/                   # Page sections that compose the above into the full page
 │
-├── utils/                # cn(), similarity→color/badge helpers, PDF export
+├── utils/                # cn() and shared utilities
 └── App.tsx                # Composition root — wraps everything in the two context providers
 ```
 
 ### Adding a new comparison
 
-Everything downstream (columns, brain diagram, transformer diagram, matrix,
-info card) reads from `src/data/`. To add a fifteenth comparison:
+The comparison explorer, diagrams, and info card read from `src/data/`. To add a fifteenth comparison:
 
 1. Add a `HumanNode` to `humanNodes` in `data/nodes.ts` (pick an `{x, y}` on
    the 240×200 brain-diagram viewBox — see the comment there for the
    orientation convention).
 2. If it needs a new LLM-side concept, add an `LLMNode` to `llmNodes`.
 3. Add a `Comparison` entry to `data/comparisons.ts` linking the two ids,
-   with a score, differences, misconception, etc.
+   with an editorial analogy label, differences, and misconception.
 
 No component needs to change — the new node will appear in the columns,
-the brain diagram, the region index, and the similarity matrix
-automatically.
+the brain diagram, region index, and comparison explorer automatically.
 
 ### How synchronization works
 
 A single `ComparisonProvider` (in `App.tsx`) tracks which human/LLM node
 ids are currently active, from hover, keyboard focus, or a pinned
-click/tap. Every interactive view — the two columns, the brain SVG, the
-transformer diagram, and the similarity matrix — reads from this same
-context, so hovering a node anywhere highlights its analogue everywhere
-else on the page without any direct coupling between those components.
+click/tap. Every interactive view — the two columns, the brain SVG, and the
+transformer diagram — reads from this context, so hovering a node
+highlights its available comparison throughout the exhibit.
 
 ## Notes
 
@@ -115,5 +110,3 @@ else on the page without any direct coupling between those components.
   `src/components/sections/Footer.tsx` with your own.
 - `lucide-react` no longer ships brand marks, so the footer's GitHub/LinkedIn
   glyphs are small hand-written SVGs in `src/components/ui/BrandIcons.tsx`.
-- The PDF export is dynamically imported on click so its dependencies
-  (jsPDF + a canvas library) don't add weight to the initial page load.

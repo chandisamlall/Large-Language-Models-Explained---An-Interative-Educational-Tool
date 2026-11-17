@@ -35,11 +35,9 @@ export interface MemoryPair {
 }
 
 /**
- * Content grounded in "Rethinking Memory in AI" (arXiv:2504.15965),
- * which maps LLM memory onto the classic short-term/long-term split
- * from human memory science. Kept to five pairs on purpose -- this is
- * meant to be a quick, legible parallel, not the full 8-quadrant
- * taxonomy the paper proposes.
+ * A teaching comparison of human memory categories and features found in
+ * LLM-based products. These are functional contrasts, not direct mappings
+ * between human memory systems and model components.
  */
 export const shortTermMemory: MemoryPair[] = [
   {
@@ -56,11 +54,12 @@ export const shortTermMemory: MemoryPair[] = [
     id: 'working',
     humanIcon: Brain,
     humanLabel: 'Working memory',
-    humanNote: 'seconds to minutes',
+    humanNote: 'limited, task-sensitive capacity',
     aiIcon: MessageCircle,
     aiLabel: 'Context window',
-    aiNote: 'current chat only',
-    detail: 'Holds the live conversation. Gone once the chat ends or scrolls out of range.',
+    aiNote: 'tokens supplied to this call',
+    detail: 'The model can use the tokens supplied for this request. A chat product may include earlier turns, summaries, or retrieved details; the model does not necessarily receive the whole chat history.',
+
   },
 ]
 
@@ -72,8 +71,9 @@ export const longTermMemory: MemoryPair[] = [
     humanNote: 'personal experiences',
     aiIcon: Database,
     aiLabel: 'Memory database',
-    aiNote: 'remembers you, across chats',
-    detail: 'Example: MemoryBank recalls past conversations, and even fades old ones over time the way human memory does.',
+    aiNote: 'optional external storage',
+    detail: 'A product may save selected information and retrieve it in a later session. This is application-level storage, not an episodic memory inside the base model.',
+
   },
   {
     id: 'semantic',
@@ -83,7 +83,8 @@ export const longTermMemory: MemoryPair[] = [
     aiIcon: Cpu,
     aiLabel: 'Trained knowledge',
     aiNote: 'baked into the model',
-    detail: "Everything the model learned from its training data, fixed in its weights unless it's retrained.",
+    detail: 'Training shapes model parameters, which can influence later responses. This is a broad functional comparison, not a claim that facts are stored as clean, addressable records.',
+
   },
   {
     id: 'procedural',
@@ -99,32 +100,31 @@ export const longTermMemory: MemoryPair[] = [
 
 /**
  * A closer, agent-specific cut of the same short-term/long-term split above:
- * how an agentic system's context window + RAG pipeline lines up against
- * human working and long-term memory feature-by-feature, down to the
- * retrieval mechanism and how each side updates over time.
+ * how an agent application can manage context and external records. The
+ * comparisons describe system behavior, not internal human-like memory.
  */
 export const agentMemory: MemoryPair[] = [
   {
     id: 'agent-scratchpad',
     humanIcon: Brain,
     humanLabel: 'Working memory',
-    humanNote: 'prefrontal, ~4–7 chunks',
+    humanNote: 'limited and task-sensitive',
     aiIcon: Layers,
     aiLabel: 'Context window',
-    aiNote: 'held in self-attention',
-    detail:
-      'The prefrontal cortex actively holds and manipulates a handful of task-relevant items. An agent instead keeps the current prompt, active variables, and execution history live in self-attention over its context window.',
+    aiNote: 'prompt and supplied context',
+    detail: 'Working memory actively maintains and manipulates task-relevant information. A model instead receives a context for each call; the surrounding system may add a plan, prior tool results, or a summary.',
+
   },
   {
     id: 'agent-capacity',
     humanIcon: Gauge,
-    humanLabel: 'Severe capacity bottleneck',
-    humanNote: 'overload, interference, decay',
+    humanLabel: 'Working memory limits',
+    humanNote: 'varies with task and strategy',
     aiIcon: Boxes,
-    aiLabel: 'Fixed token bounds',
-    aiNote: '128k–1M+ tokens',
-    detail:
-      "Human working memory is low-capacity and decays without rehearsal. Agents get far more headroom, but long contexts still suffer \u2018lost in the middle\u2019 attention degradation and hard overflow limits.",
+    aiLabel: 'Model-specific context limit',
+    aiNote: 'input and output token budget',
+    detail: 'Human working memory is constrained in ways that depend on task, attention, and chunking. Model context limits are product-specific token budgets; long inputs can still make relevant information harder to use.',
+
   },
   {
     id: 'agent-episodic',
@@ -134,41 +134,41 @@ export const agentMemory: MemoryPair[] = [
     aiIcon: Search,
     aiLabel: 'Episodic RAG',
     aiNote: 'vector search over logs',
-    detail:
-      'Humans recall specific past events and sequences via the hippocampus. Agents query a vector store for historical logs, tool outputs, or past execution traces by embedding similarity.',
+    detail: 'Human episodic memory supports recall of experiences. An agent can search an external record store, but retrieval quality depends on how information was saved, indexed, and queried.',
+
   },
   {
     id: 'agent-semantic',
     humanIcon: Lightbulb,
     humanLabel: 'Semantic long-term memory',
-    humanNote: 'neocortical, context-free facts',
+    humanNote: 'general knowledge and concepts',
     aiIcon: Network,
     aiLabel: 'Semantic RAG & parametric weights',
     aiNote: 'knowledge graphs + trained weights',
-    detail:
-      'Neocortical networks hold general world knowledge stripped of the events that taught it. Agents pull the equivalent from knowledge graphs and retrieval, or from facts baked directly into the trained weights.',
+    detail: 'Human semantic memory contains general knowledge. An application can retrieve documents or use model parameters shaped by training; neither is a one-to-one counterpart.',
+
   },
   {
     id: 'agent-search',
     humanIcon: Zap,
     humanLabel: 'Associative & spreading activation',
-    humanNote: 'cue-triggered, emotionally weighted',
+    humanNote: 'cue-driven and context-sensitive',
     aiIcon: Calculator,
     aiLabel: 'k-NN / cosine similarity',
-    aiNote: 'dense vector matching',
-    detail:
-      'A cue in humans triggers activation that spreads across the network, shaped by emotional salience and recency. Agents instead run exact but context-blind mathematical similarity search over embeddings.',
+    aiNote: 'similarity-based retrieval',
+    detail: 'Human recall is influenced by cues and context. Vector search ranks stored items by an embedding-based measure; it can miss relevant information and does not capture human association or emotional salience.',
+
   },
   {
     id: 'agent-update',
     humanIcon: RefreshCw,
     humanLabel: 'Reconsolidation & plasticity',
-    humanNote: 're-encoded on every recall',
+    humanNote: 'recall can reshape a memory',
     aiIcon: Lock,
     aiLabel: 'Read-heavy & static',
     aiNote: 'needs re-indexing to change',
-    detail:
-      'Every human recall re-encodes the memory \u2014 adaptive, but also a source of drift and false detail over time. An agent\u2019s external memory stores stay put until something explicitly rewrites or re-indexes them.',
+    detail: 'Some memories can change during retrieval and reconsolidation, but this is not true of every recall. External stores change only when the application writes, edits, or removes records.',
+
   },
 ]
 
@@ -189,22 +189,22 @@ export const agentProblemSolving: ProblemSolvingStep[] = [
     title: 'Problem decomposition',
     humanApproach:
       'Working memory chunks the task and steers active attention, while long-term memory supplies procedural strategies for how to tackle it.',
-    aiApproach:
-      'An active system prompt or plan lives in the context window, with step-by-step chain-of-thought traces acting as an artificial scratchpad.',
+    aiApproach: 'A system may place a plan or task instructions in the model context. Some systems also use summaries or structured state; private reasoning traces are not required for an agent to act.',
+
   },
   {
     id: 'retrieval',
     title: 'Intermediate retrieval',
     humanApproach:
       'Cue-dependent spreading activation surfaces relevant concepts or past experience automatically, with no explicit search step.',
-    aiApproach:
-      'Hitting an unfamiliar sub-goal triggers a targeted RAG query \u2014 a vector similarity search that pulls semantic facts or past execution traces back into the context buffer.',
+    aiApproach: 'If configured, the system can retrieve documents or past records and add selected results to the model context. Retrieval is an application step, not an automatic property of every model.',
+
   },
   {
     id: 'error-correction',
     title: 'Error correction & adaptation',
-    humanApproach: 'Feedback updates the mental model directly and dynamically, in place, within working memory.',
-    aiApproach:
-      "Agents can't edit their context directly \u2014 they append error logs to the prompt or rewrite an external state block to avoid repeating a failed branch.",
+    humanApproach: 'Feedback can update expectations and influence later choices, though memory and learning are not always immediate or error-free.',
+    aiApproach: 'The model receives a new context on each call. A harness can append tool results, errors, or summaries and may update external state between calls.',
+
   },
 ]

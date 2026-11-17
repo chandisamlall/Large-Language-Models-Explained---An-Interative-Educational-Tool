@@ -3,11 +3,11 @@ import { TransformerExplorer } from '../explainer/TransformerExplorer'
 
 export function TransformerExplainerSection() {
   return (
-    <section id="predict" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <section id="predict" className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
       <SectionHeading
         eyebrow="Interactive Demo"
-        title="How does it guess the next word?"
-        description="Type a sentence and watch, step by step, how a language model turns it into meaning, checks which earlier words matter most, and guesses what comes next."
+        title="A toy next-token demo"
+        description="Change the input and inspect a deliberately small illustration of tokenization, weighting, and candidate selection. The weights and candidates are teaching placeholders, not a live model trace."
       />
       <div className="mt-10">
         <TransformerExplorer />

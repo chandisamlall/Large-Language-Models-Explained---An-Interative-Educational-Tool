@@ -3,11 +3,10 @@ import { Reveal } from '../ui/Reveal'
 import { BrainDiagram } from '../diagrams/BrainDiagram'
 import { BrainRegionIndex } from '../diagrams/BrainRegionIndex'
 import { TransformerDiagram } from '../diagrams/TransformerDiagram'
-import { ArchitectureFlowDiagram } from '../diagrams/ArchitectureFlowDiagram'
 
 export function DiagramsSection() {
   return (
-    <section id="diagrams" className="border-y border-border-soft bg-bg-raised/40 py-16 sm:py-20">
+    <section id="diagrams" className="border-y border-border-soft bg-bg-raised/40 py-12 sm:py-16">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Under the Hood"
@@ -39,10 +38,6 @@ export function DiagramsSection() {
             </div>
           </Reveal>
         </div>
-
-        <Reveal delay={0.15} className="mt-8">
-          <ArchitectureFlowDiagram />
-        </Reveal>
       </div>
     </section>
   )

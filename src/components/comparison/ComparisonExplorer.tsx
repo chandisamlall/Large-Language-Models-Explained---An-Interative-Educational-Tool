@@ -6,7 +6,7 @@ import { comparisons } from '../../data/comparisons'
 import { NodeButton } from './NodeButton'
 import { ConnectionBeam } from './ConnectionBeam'
 import { InfoCard } from './InfoCard'
-import { SimilarityLegend } from './SimilarityLegend'
+import { AnalogyLegend } from './AnalogyLegend'
 import { SectionHeading } from '../ui/SectionHeading'
 
 /** Builds (and caches) one stable ref-callback per node id. A fresh inline
@@ -35,7 +35,7 @@ function useStableRefMap<T extends HTMLElement>() {
 }
 
 export function ComparisonExplorer() {
-  const { activeHumanIds, activeLlmIds, activeComparison, hoverHuman, hoverLlm, selectHuman, clearSelection } =
+  const { activeHumanIds, activeLlmIds, activeComparison, hoverHuman, hoverLlm, selectHuman, selectLlm, clearSelection } =
     useComparison()
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -49,18 +49,22 @@ export function ComparisonExplorer() {
     })
     .filter((p): p is { humanId: string; llmId: string } => p !== null)
 
-  const hasActive = activeHumanIds.length > 0
+  const hasActive = activeHumanIds.length > 0 || activeLlmIds.length > 0
+  const activeLlmNode = activeLlmIds.length > 0 ? llmNodes.find((node) => node.id === activeLlmIds[0]) ?? null : null
+  const unmatchedLlmNode = activeLlmNode && !comparisons.some((comparison) => comparison.llmId === activeLlmNode.id)
+    ? activeLlmNode
+    : null
 
   return (
     <section id="explore" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <SectionHeading
         eyebrow="Interactive Exhibit"
         title="Explore the comparison"
-        description="Hover, focus, or tap any node to see its closest analogue light up on the other side, with an honest breakdown of where the comparison holds up and where it doesn't."
+        description="Explore functional comparisons with a text-only language model. Ratings are editorial, not measurements; tools and persistent memory belong to the surrounding application or agent."
       />
 
       <div className="mt-6">
-        <SimilarityLegend />
+        <AnalogyLegend />
       </div>
 
       <div ref={containerRef} className="relative mt-10">
@@ -127,6 +131,7 @@ export function ComparisonExplorer() {
                   onSelect={() => {
                     const match = comparisons.find((c) => c.llmId === node.id)
                     if (match) selectHuman(match.humanId)
+                    else selectLlm(node.id)
                   }}
                 />
               ))}
@@ -136,10 +141,10 @@ export function ComparisonExplorer() {
       </div>
 
       <div className="mt-10">
-        <InfoCard comparison={activeComparison} />
+        <InfoCard comparison={activeComparison} unmatchedLlmNode={unmatchedLlmNode} />
       </div>
 
-      {activeComparison && (
+      {(activeComparison || unmatchedLlmNode) && (
         <div className="mt-4 text-center">
           <button
             type="button"

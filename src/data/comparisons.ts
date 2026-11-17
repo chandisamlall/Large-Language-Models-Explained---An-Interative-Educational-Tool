@@ -1,12 +1,10 @@
 import type { Comparison } from './types'
 
 /**
- * The heart of the exhibit. Every human-cognition node maps to exactly
- * one "closest available" LLM node, with a similarity score that is
- * intentionally NOT clustered near the top — several entries are
- * deliberately low, because part of this exhibit's point is that some
- * human faculties (emotion, intention, memory consolidation) have no
- * good statistical analogue at all.
+ * Editorial comparison notes for the exhibit. Some human functions have
+ * no close counterpart in a text-only LLM; shared names or broad roles
+ * do not imply shared mechanisms. Ratings describe functional overlap,
+ * not a measured similarity score.
  *
  * Add a new comparison by adding a HumanNode + LLMNode (in nodes.ts)
  * and an entry here — no component code needs to change.
@@ -15,255 +13,247 @@ export const comparisons: Comparison[] = [
   {
     humanId: 'sensory-input',
     llmId: 'token-input',
-    similarity: 80,
-    confidence: 'High',
+    analogy: 'Useful analogy',
     whySimilar:
-      'Both are the raw entry point of the system: unprocessed signal (photons, air pressure, text) that hasn\u2019t been interpreted yet.',
+      'Both sit at an input boundary: sensory systems receive physical signals, while a text-only model receives a token sequence prepared by software.',
     keyDifferences: [
-      'Sensory input arrives continuously through many channels at once; token input arrives as a discrete, pre-segmented sequence.',
-      'Human senses are transduced by living tissue tuned by evolution; tokenization is a fixed algorithm designed by engineers.',
+      'Human senses transduce continuous signals across multiple channels; a text model receives discrete token IDs after an application has processed the text.',
+      'The shared role is broad input, not shared sensory experience or processing.',
     ],
     misconception: '"The AI sees and hears the way I do."',
     reality:
-      'A model never touches pixels or sound waves directly unless it was built and trained for that modality. Text models only ever receive integers standing in for chunks of text.',
+      'A text-only model receives token IDs and learned representations, not a human-like sensory stream. Multimodal systems can process image or audio representations through additional components.',
     realWorldImplication:
       'Because tokenization splits text mechanically, models can stumble on tasks that seem trivial to us, like counting letters in a word split across multiple tokens.',
     example:
-      'The word "strawberry" may be split into tokens like "straw" and "berry" \u2014 the model never sees individual letters the way your eyes do.',
+      'Tokenizers can split written text into model-specific pieces; the exact split depends on the tokenizer, not on how a person sees letters.',
   },
   {
     humanId: 'visual-cortex',
-    llmId: 'embeddings',
-    similarity: 48,
-    confidence: 'Medium',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'Both take a raw, high-dimensional signal and compress it into a smaller, more structured internal representation that later stages can use.',
+      'A text-only LLM has no visual-cortex counterpart. This is a useful place to show a missing capability rather than force a match.',
     keyDifferences: [
-      'Visual cortex has a retinotopic map and specialized layers shaped by millions of years of evolution and years of visual experience.',
-      'An embedding is a static lookup table \u2014 the same token always starts from the exact same vector, with no scene, depth, or motion to interpret.',
+      'Visual cortex is biological tissue involved in processing visual input within a larger visual system.',
+      'Text embeddings represent token IDs; they do not process scenes, depth, or motion. Multimodal models may add vision components, which are still not equivalent to a visual cortex.',
     ],
-    misconception: '"Embeddings are how the AI \u2018sees\u2019 words."',
+    misconception: '"Text embeddings are the model\u2019s visual cortex."',
     reality:
-      'Embeddings are a mathematical convenience: a way to place similar tokens near each other in vector space so arithmetic can be done on them. There is no picture-like experience involved.',
+      'Embeddings map token IDs to learned vectors. Their geometry can encode useful statistical relationships, but it is not visual perception.',
     realWorldImplication:
-      'Embedding geometry explains why models group "king" and "queen" as related, but it doesn\u2019t mean the model perceives royalty the way a person imagines it.',
+      'A text-only model can describe an image if the description is in its input, but it has no visual input channel in this comparison.',
     example:
-      'In embedding space, "cat" sits closer to "dog" than to "car" \u2014 a useful structure, but nothing is actually being looked at.',
+      'A multimodal model may use image encoders; that is a separate system component, not a direct analogue for biological visual experience.',
   },
   {
     humanId: 'auditory-cortex',
-    llmId: 'positional-encoding',
-    similarity: 28,
-    confidence: 'Low',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'Both deal with information that only makes sense in sequence \u2014 hearing unfolds over time, and positional encoding tells the model where each token falls in order.',
+      'A text-only LLM has no auditory-cortex counterpart. Token position is not a stand-in for hearing.',
     keyDifferences: [
-      'Auditory cortex extracts pitch, timbre, and rhythm from a physical waveform through specialized neural circuitry.',
-      'Positional encoding is a small set of numbers added to an embedding so attention can distinguish "dog bites man" from "man bites dog" \u2014 it carries no sound at all.',
+      'Auditory pathways process acoustic signals such as pitch, timing, and timbre as part of a wider perceptual system.',
+      'Positional information helps a text model represent sequence order; it carries no acoustic signal.',
     ],
-    misconception: '"The model hears the rhythm of my sentence."',
+    misconception: '"Token positions are the model\u2019s version of hearing."',
     reality:
-      'Positional encoding is purely about token order in a sequence of symbols. Text models process no acoustic information whatsoever.',
+      'A text-only model can process written descriptions of sound, but it does not hear them. Audio-capable systems add separate audio processing.',
     realWorldImplication:
-      'This is one of the weaker analogies in the exhibit \u2014 it\u2019s included to show that not every human faculty has a good statistical counterpart.',
+      'This is a deliberate non-match: sequence order and auditory perception solve different problems.',
     example:
-      'Swap two tokens in a prompt and the model "notices" only because their position values changed, not because anything sounded different.',
+      'Changing token order changes the sequence the model processes; it does not create a sound for the model to hear.',
   },
   {
     humanId: 'working-memory',
     llmId: 'context-window',
-    similarity: 72,
-    confidence: 'High',
+    analogy: 'Limited analogy',
     whySimilar:
-      'Both temporarily hold the information needed to complete the current task, and both have a hard capacity limit.',
+      'Both concern information currently available for a task. This is a functional analogy only: a context window is text supplied to a model, not an active mental workspace.',
     keyDifferences: [
-      'Human working memory actively manipulates information using perception, goals, and attention, and can rehearse it indefinitely.',
-      'The context window is simply the span of text available during inference \u2014 it doesn\u2019t "think about" what it\u2019s holding between one word and the next.',
+      'Working memory involves active maintenance and manipulation; capacity and duration depend on task, attention, rehearsal, and interference.',
+      'A context window is a model-specific token budget that can include instructions, conversation, retrieved text, and tool results.',
     ],
     misconception: '"The AI remembers everything I\u2019ve said."',
     reality:
-      'Once text scrolls out of the context window, the model no longer has access to it unless it is reintroduced in a later message.',
+      'The model can use only the context supplied to that call. An application may summarize earlier text or retrieve it again; a context limit is not the same as human forgetting.',
     realWorldImplication:
-      'This is why long conversations can cause a model to "forget" details from early on \u2014 they\u2019ve simply left the window, not been misremembered.',
+      'Long conversations can exceed a model’s context budget or make relevant details harder to use; products may handle this with summarization or retrieval.',
     example:
-      'Tell a model your name on message one of a hundred-message chat, and once the window fills, it may need a reminder \u2014 the information didn\u2019t fade, it fell out of view.',
+      'A chat product may summarize or retrieve a detail from earlier turns; that system behavior is different from a person rehearsing a memory.',
   },
   {
     humanId: 'long-term-memory',
     llmId: 'model-weights',
-    similarity: 62,
-    confidence: 'Medium',
+    analogy: 'Limited analogy',
     whySimilar:
-      'Both are where accumulated knowledge lives long after the moment it was acquired, and both shape behavior without being consciously "read" each time.',
+      'Both can influence later behavior based on past learning, but model weights are not a human-like store of autobiographical memories.',
     keyDifferences: [
-      'Long-term memory can be formed in a single exposure and continues to update throughout life.',
-      'Model weights are fixed once training ends; the model cannot add a new memory from a conversation the way a person adds one from an event.',
+      'Human long-term memory includes different forms of knowledge and experience and can be updated by later learning and retrieval.',
+      'A trained model’s weights typically stay fixed during inference and encode learned patterns in distributed parameters, not addressable episodes.',
     ],
     misconception: '"If I tell the AI something, it will remember it from now on."',
     reality:
-      'Unless a developer runs a new training or fine-tuning process, weights don\u2019t change from a conversation. What feels like "remembering" within a chat is just context window contents.',
+      'A conversation usually does not update the base model’s weights. A product can still store user information externally and supply it in a later interaction.',
     realWorldImplication:
-      'This is why the same model can give inconsistent answers about your preferences across two separate chats \u2014 nothing was stored between them.',
+      'When a product recalls a preference across chats, check whether its application stores and retrieves that information; it need not have changed model weights.',
     example:
-      'A model can describe the French Revolution in detail (baked into its weights) but cannot learn a new fact permanently just because you mentioned it today.',
+      'A model may answer from patterns encoded during training, while a product may separately save a new preference for future use.',
   },
   {
     humanId: 'hippocampus',
-    llmId: 'hidden-representations',
-    similarity: 22,
-    confidence: 'Low',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'Both sit "in between" \u2014 the hippocampus links fresh experience to long-term storage, and hidden representations are the transient values passed between layers before an output forms.',
+      'Hidden representations are not a memory-consolidation system. A text-only LLM has no close counterpart to the hippocampus’s role in episodic memory.',
     keyDifferences: [
-      'The hippocampus performs an active, biological consolidation process, replaying and strengthening memories, including during sleep.',
-      'Hidden representations exist only for the duration of a single forward pass and vanish afterward; they consolidate nothing into the weights.',
+      'The hippocampus contributes to forming and retrieving episodic and relational memories within broader memory networks.',
+      'Hidden representations are intermediate model activations during computation; they are not a mechanism that stores new episodes in the weights.',
     ],
-    misconception: '"The AI is quietly filing this conversation away for later."',
+    misconception: '"Hidden representations are where the AI stores this conversation."',
     reality:
-      'There is no mechanism in a deployed LLM analogous to memory consolidation. Each response is computed fresh from the current context and fixed weights.',
+      'A deployed text model does not consolidate a conversation into its weights during an ordinary response. External memory features belong to the surrounding application.',
     realWorldImplication:
-      'Products that appear to "remember" you across sessions are typically storing your messages in an external database and re-inserting them into context \u2014 not consolidating memory internally.',
+      'Cross-session recall may use an external store and retrieval step; that is system-level memory, not a hippocampal process inside the language model.',
     example:
       'A chat app that recalls your birthday next week most likely saved it to a note and fed it back to the model, rather than the model having "consolidated" it.',
   },
   {
     humanId: 'attention',
     llmId: 'attention-mechanism',
-    similarity: 65,
-    confidence: 'Medium',
+    analogy: 'Limited analogy',
     whySimilar:
-      'Both selectively weigh some information more heavily than other information in order to complete a task \u2014 and both share the same name for a reason.',
+      'Both use selective weighting, but the shared word “attention” refers to different biological and computational processes.',
     keyDifferences: [
-      'Human attention is tied to conscious awareness, effort, and goals, and can be voluntarily directed or involuntarily captured.',
-      'The attention mechanism is a matrix multiplication that assigns weights between tokens \u2014 there is no experience of attending, just arithmetic.',
+      'Human attention includes multiple processes; some are deliberate, while others can operate without conscious awareness.',
+      'Transformer attention mixes information across token positions. Its weights are not human focus and do not, by themselves, explain a model’s answer.',
     ],
     misconception: '"The AI is focusing on the important part of my question, the way I would."',
     reality:
-      'Attention weights do highlight which tokens influence which \u2014 that part is real and inspectable \u2014 but nothing is being consciously prioritized.',
+      'Attention weights are part of a computation, but interpreting them as a reliable account of feature importance or reasoning requires care.',
     realWorldImplication:
-      'This shared vocabulary is a major source of confusion: "attention" was a deliberate, evocative naming choice by researchers, not a claim of psychological similarity.',
+      'A shared label can invite a misleading mental picture; the comparison is about selective information processing, not subjective focus.',
     example:
-      'Visualizing attention weights can show a model "attending" heavily to a name earlier in a sentence when producing a pronoun \u2014 a useful computation, not a feeling of focus.',
+      'A heatmap can display model attention values, but it should not be read as a complete explanation of why a token was generated.',
   },
   {
     humanId: 'prefrontal-cortex',
-    llmId: 'transformer-layers',
-    similarity: 38,
-    confidence: 'Low',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'Both are cast as the "processing core" of their system \u2014 the place where raw input becomes reasoned output.',
+      'Planning and cognitive control are associated with prefrontal and wider brain networks. A text-only transformer has no single component that maps neatly to those functions.',
     keyDifferences: [
-      'The prefrontal cortex supports planning, impulse control, and abstract goal-directed reasoning built on embodied experience.',
-      'Transformer layers are a fixed stack of matrix operations applied identically regardless of any goal or plan \u2014 there is no executive function overseeing the process.',
+      'Prefrontal regions contribute to planning and cognitive control as part of wider, interacting brain networks.',
+      'Transformer layers compute representations from the supplied context. Planning and tool use, when present, can arise from the surrounding agent loop rather than a dedicated executive layer.',
     ],
     misconception: '"Deeper layers are where the AI does its \u2018real thinking.\u2019"',
     reality:
-      'Layers do build increasingly abstract representations, but "abstract" here means statistically compressed, not deliberated over the way a plan is.',
+      'Transformer depth is a computational design feature; it does not by itself establish deliberation, self-control, or a human-like plan.',
     realWorldImplication:
       'Describing transformer depth as "thinking harder" invites people to expect judgment and self-control that the architecture doesn\u2019t provide.',
     example:
-      'A 96-layer model can still produce a confidently wrong answer instantly \u2014 depth adds representational power, not a moment of reflection.',
+      'A model can produce an incorrect answer despite many layers; depth alone is not a check on truth or judgment.',
+
   },
   {
     humanId: 'prediction',
     llmId: 'next-token-prediction',
-    similarity: 58,
-    confidence: 'Medium',
+    analogy: 'Useful analogy',
     whySimilar:
-      'Predictive processing theories describe the brain as constantly forecasting incoming input; next-token prediction is the literal training objective of most LLMs.',
+      'Both involve prediction, but predictive processing is one influential family of theories about brain function, while next-token prediction is a common language-model objective.',
     keyDifferences: [
-      'Brains predict across every sense and timescale to minimize surprise and guide action in the world.',
-      'An LLM predicts exactly one thing \u2014 the next token in a sequence of text \u2014 with no stake in being right beyond the training signal.',
+      'Predictive-processing accounts concern perception and action across biological systems; their scope and interpretation remain debated.',
+      'Many autoregressive language models estimate a distribution over the next token from their context. They may also be fine-tuned, connected to tools, or wrapped in systems that check outputs.',
     ],
     misconception: '"The AI is thinking ahead about how to answer me."',
     reality:
-      'The model produces one token, appends it to the sequence, and repeats. There is no advance outline being planned before the first word is chosen.',
+      'Autoregressive decoding produces a sequence step by step. Some systems can also plan, revise, or use tools around that generation loop.',
     realWorldImplication:
-      'This is part of why models can start a sentence that paints them into a factual corner \u2014 there was no upfront plan for where it would end.',
+      'A fluent continuation is not a guarantee that later claims were checked against reliable evidence.',
     example:
-      'Ask for a five-point list, and the model doesn\u2019t know point five in advance while writing point one \u2014 it is discovered one token at a time.',
+      'In ordinary autoregressive decoding, text is emitted token by token; an agent may still create or revise an outline before or during that process.',
+
   },
   {
     humanId: 'decision-making',
     llmId: 'probability-distribution',
-    similarity: 52,
-    confidence: 'Medium',
+    analogy: 'Limited analogy',
     whySimilar:
       'Both involve weighing multiple candidates before one is selected \u2014 options with different "scores" competing for a single outcome.',
     keyDifferences: [
-      'Human decisions integrate memory, emotion, social context, and explicit goals, often over long deliberation.',
-      'A probability distribution is a list of numbers over possible next tokens, produced in a single pass with no deliberation or stake in the outcome.',
+      'Human decisions can involve memory, emotion, social context, and goals, across multiple interacting processes.',
+      'A next-token distribution is a computational score over possible continuations; it is not itself a human-like deliberative choice.',
     ],
     misconception: '"The AI decided this was the best answer."',
     reality:
-      'A sampling procedure picks a token from the distribution \u2014 sometimes the highest-probability one, sometimes not, depending on settings like temperature.',
+      'A decoding rule selects from the distribution. Depending on configuration, it may choose the highest-scoring token or sample among candidates.',
     realWorldImplication:
-      'The same prompt can yield different outputs on different runs; that variability comes from sampling, not from the model changing its mind.',
+      'Sampling can introduce variation between runs; deterministic decoding may instead return the same continuation for the same inputs and settings.',
     example:
-      'At higher "temperature" settings, a model may pick a lower-probability token on purpose, producing more varied but less predictable text.',
+      'Higher temperature generally flattens the distribution before sampling, which can increase variation; exact behavior depends on the decoding setup.',
+
   },
   {
     humanId: 'emotion',
-    llmId: 'model-weights',
-    similarity: 12,
-    confidence: 'Low',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'The only thread connecting them is that both shape output in ways a person didn\u2019t explicitly author \u2014 emotion colors behavior, and weights shape every response.',
+      'Both can influence behavior, but emotion and model parameters are different kinds of things; the comparison is useful mainly for marking that boundary.',
     keyDifferences: [
-      'Emotion is a felt, embodied state involving the body, hormones, and subjective experience.',
-      'Weights are static numbers with no capacity for experience of any kind \u2014 nothing is felt before, during, or after a response is generated.',
+      'Human emotion involves bodily and neural processes and is commonly associated with felt experience.',
+      'Model weights are computational parameters. Emotional language from a model is not evidence that it has a felt emotional state.',
     ],
     misconception: '"The AI seemed sad, so it must feel something."',
     reality:
-      'Emotional-sounding text is produced because the training data contains emotional language in similar contexts \u2014 it is a stylistic pattern, not a state.',
+      'Emotional-sounding text can be generated from learned language patterns and instructions. The text alone cannot establish a subjective feeling.',
     realWorldImplication:
-      'Reading feelings into model output can lead people to trust or comfort-seek from a system that has no wellbeing to protect or care to reciprocate.',
+      'Treat emotional language as a social cue in the interaction, not as evidence of a model’s needs or inner experience.',
     example:
-      'A model can write a moving apology in one reply and a cheerful greeting in the next, with no continuity of mood between them.',
+      'A model can produce an apology and then a cheerful greeting because the wording fits each context; that shift does not tell us whether a feeling occurred.',
+
   },
   {
     humanId: 'goals',
-    llmId: 'probability-distribution',
-    similarity: 18,
-    confidence: 'Low',
+    llmId: null,
+    analogy: 'No direct analogue',
     whySimilar:
-      'Both shape which output emerges \u2014 a goal biases a person\u2019s choices, and a probability distribution determines which token is likelier to be chosen.',
+      'Both can shape behavior at different levels: people pursue goals, while an application may direct a model through a task using prompts and tools.',
     keyDifferences: [
-      'A goal is a self-generated, persistent intention held toward the future, often revisited and adjusted.',
-      'A probability distribution exists only for a single next-token decision and is recomputed from scratch each step \u2014 there is no ongoing want driving it.',
+      'Human goals can be persistent, revisited intentions; an agent can also pursue an assigned objective operationally across steps.',
+      'A base model’s next-token distribution is a computational state, not evidence of a subjective want. Persistent task behavior can be implemented by the surrounding system.',
     ],
     misconception: '"The AI wants to give me a good answer."',
     reality:
-      'Nothing in the architecture holds a desire toward an outcome. The system was trained so that certain response patterns became statistically likely.',
+      'A model can be configured to help with a task, but helpful behavior does not by itself establish a felt desire to help.',
     realWorldImplication:
-      'Talking about a model "wanting" or "trying" can obscure that its behavior is fully explained by training data and optimization, not by intent.',
+      'Distinguish an operational objective set by a person or agent harness from a claim about the model’s subjective intentions.',
     example:
-      'A model will happily produce a persuasive essay for either side of an argument \u2014 evidence that no underlying goal favors one outcome over the other.',
+      'A model can be prompted to argue different sides; that flexibility does not settle whether it has any subjective intentions.',
+
   },
   {
     humanId: 'learning',
     llmId: 'model-weights',
-    similarity: 55,
-    confidence: 'Medium',
+    analogy: 'Limited analogy',
     whySimilar:
       'Both describe a process where exposure to information changes future behavior in a lasting way.',
     keyDifferences: [
-      'Human learning is continuous, embodied, and can happen from a single memorable event.',
-      'An LLM "learns" only during a distinct training phase, via gradient descent over huge datasets \u2014 it does not learn from deployment conversations at all.',
+      'Human learning can occur through experience and changes in behavior or knowledge over time.',
+      'A deployed model’s parameters usually do not update during ordinary inference, though an application can store conversation details or adapt later system inputs.',
     ],
     misconception: '"The more I chat with it, the more it learns about me."',
     reality:
-      'A deployed model\u2019s weights are frozen. Any sense of it "getting to know you" comes from context reintroduced by the app, not from ongoing learning.',
+      'A deployed model usually keeps the same weights during a conversation. A product may still remember information through context, retrieval, or external storage.',
     realWorldImplication:
-      'Improving a model\u2019s knowledge requires a separate training run by its developers \u2014 individual conversations don\u2019t retrain it.',
+      'Changing the base model’s parameters requires an update process; improving a product’s behavior can also involve retrieval, prompt changes, or other system updates.',
     example:
-      'Correcting a model\u2019s mistake mid-conversation can change its next reply, but the correction is gone \u2014 not learned \u2014 once the conversation ends.',
+      'A correction in the current context can affect the next reply. Whether it is available in a later session depends on the product’s memory features.',
+
   },
   {
     humanId: 'motor-output',
     llmId: 'output-tokens',
-    similarity: 70,
-    confidence: 'High',
+    analogy: 'Useful analogy',
     whySimilar:
       'Both are the final, externally visible product of everything upstream \u2014 the only part the outside world actually sees.',
     keyDifferences: [

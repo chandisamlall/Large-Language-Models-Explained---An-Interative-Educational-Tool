@@ -5,30 +5,38 @@ export const researchTopics: ResearchTopic[] = [
     id: 'eliza-effect',
     title: 'The ELIZA Effect',
     explanation:
-      'Named after a 1966 chatbot that simply reflected users\u2019 words back as questions, the ELIZA effect describes our tendency to read far more understanding into a system\u2019s responses than is actually there \u2014 even when we know exactly how simple the mechanism is.',
+      'Joseph Weizenbaum’s 1960s ELIZA program showed how people could read understanding into a text exchange, even when the program followed a narrow script. It is a historical example of interpretation, not proof that every fluent system triggers the same response.',
+    sources: [{ label: 'Weizenbaum (1966)', url: 'https://doi.org/10.1145/365153.365168' }],
   },
   {
     id: 'theory-of-mind',
     title: 'Theory of Mind',
     explanation:
-      'Humans automatically model other minds \u2014 inferring beliefs, desires, and intentions to explain behavior. This machinery fires reflexively on anything that produces language, including a model with no mind to model.',
+      'This research framework studies how people explain behavior by reasoning about beliefs, desires, and intentions. Applying it to a chatbot can describe how a person interprets its replies; it does not show that the system has those mental states.',
+    sources: [{ label: 'Premack & Woodruff (1978)', url: 'https://doi.org/10.1017/S0140525X00076512' }],
   },
   {
     id: 'agency-detection',
     title: 'Agency Detection',
     explanation:
-      'An evolved bias toward assuming something is an intentional agent, since over-detecting agency (mistaking wind for a predator) was historically safer than under-detecting it. Fluent text is more than enough to trip this bias.',
+      'People use cues to decide whether something is an agent. The proposal that people are biased toward over-detecting agency is one account in this research area, not a settled explanation for reactions to AI; context and social cues matter.',
+    sources: [{ label: 'Barrett (2000)', url: 'https://pubmed.ncbi.nlm.nih.gov/10637620/' }],
   },
   {
     id: 'intentional-stance',
     title: 'The Intentional Stance',
     explanation:
-      'Philosopher Daniel Dennett\u2019s term for treating a system "as if" it has beliefs and desires because doing so is often the most efficient way to predict its behavior \u2014 useful for prediction, but not evidence the system truly has them.',
+      'Daniel Dennett described treating a system as if it had beliefs and desires as a strategy for predicting what it will do. The strategy can be useful without showing that the system has human-like beliefs, desires, or feelings.',
+    sources: [{ label: 'Dennett, The Intentional Stance', url: 'https://mitpress.mit.edu/9780262040938/the-intentional-stance/' }],
   },
   {
     id: 'social-responses',
     title: 'Social Responses to Computers',
     explanation:
-      'Research on the "Computers Are Social Actors" phenomenon shows people apply real social rules \u2014 politeness, reciprocity, even flattery \u2014 to machines, largely automatically and independent of what they consciously believe about the machine.',
+      'Studies have found people applying social rules to computers in some settings. These effects depend on the task and cues; they should not be treated as automatic or universal responses to every conversational system.',
+    sources: [
+      { label: 'Reeves & Nass (1996)', url: 'https://concetticontrastivi.org/wp-content/uploads/2022/12/computer_are_social_actors.pdf' },
+      { label: 'Kraus et al. (2023)', url: 'https://doi.org/10.1038/s41598-023-46527-9' },
+    ],
   },
 ]

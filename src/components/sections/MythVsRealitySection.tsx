@@ -10,7 +10,7 @@ export function MythVsRealitySection() {
   const [expandedId, setExpandedId] = useState<string | null>(mythCards[0]?.id ?? null)
 
   return (
-    <section id="myths" className="border-y border-border-soft bg-bg-raised/40 py-16 sm:py-20">
+    <section id="myths" className="border-y border-border-soft bg-bg-raised/40 py-12 sm:py-16">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeading
           eyebrow="Myth vs. Reality"

@@ -7,21 +7,17 @@ import { Reveal } from '../ui/Reveal'
 import { cn } from '../../utils/cn'
 
 /**
- * Five hallucination/confabulation pairs, each expanding into the LLM
- * mechanism, the human cognitive-science parallel, and a proposed exhibit
- * experiment. Unlike the Myths section, the third column is a suggestion
- * for future work, not a settled finding -- flagged with a flask icon so
- * it doesn't read as a stated fact the way the first two columns do.
+ * Behavioral comparisons with an explicit distinction between mechanisms.
  */
 export function HallucinationSection() {
   const [expandedId, setExpandedId] = useState<string | null>(hallucinationCards[0]?.id ?? null)
 
   return (
-    <section id="hallucination" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <section id="hallucination" className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
       <SectionHeading
-        eyebrow="Where It Breaks"
-        title="Hallucination vs. confabulation"
-        description="Neither system checks its output against the world -- only against what a plausible answer looks like. Click a mechanism to see the human parallel and an exhibit experiment it suggests."
+        eyebrow="Error Patterns"
+        title="Plausible errors, different causes"
+        description="LLMs can produce unsupported claims, and people can misremember. Some outcomes look similar while arising from different processes. Open a topic to see the distinction and a research question."
       />
 
       <div className="mt-10 space-y-3">
@@ -64,15 +60,15 @@ export function HallucinationSection() {
                           <p className="mt-1.5 text-sm text-ink-dim">{card.llmMechanism}</p>
                         </div>
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-brain">Human parallel</h4>
-                          <p className="mt-1.5 text-sm text-ink-dim">{card.humanParallel}</p>
+                          <h4 className="text-xs font-semibold uppercase tracking-wide text-brain">Human behavior (different mechanisms)</h4>
+                          <p className="mt-1.5 text-sm text-ink-dim">{card.humanComparison}</p>
                         </div>
                         <div>
                           <h4 className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-warning">
                             <FlaskConical className="h-3 w-3" aria-hidden="true" />
-                            Proposed experiment
+                            Research question
                           </h4>
-                          <p className="mt-1.5 text-sm text-ink-dim">{card.proposedExperiment}</p>
+                          <p className="mt-1.5 text-sm text-ink-dim">{card.researchQuestion}</p>
                         </div>
                       </div>
                     </motion.div>

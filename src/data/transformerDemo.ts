@@ -127,7 +127,7 @@ export function retemper(base: number[], temperature: number): number[] {
   return exps.map((e) => e / sum)
 }
 
-/** Colors used for the per-token "meaning fingerprint" bars in the
+/** Colors used for the per-token placeholder bars in the
  *  Meaning step. Reuses the exhibit's existing brain/llm palette plus a
  *  couple of neutral extras so tokens are visually distinguishable. */
 export const EMBED_PALETTE = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6']

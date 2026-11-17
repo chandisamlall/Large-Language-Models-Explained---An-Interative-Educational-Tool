@@ -29,7 +29,7 @@ export const humanNodes: HumanNode[] = [
   {
     id: 'working-memory',
     label: 'Working Memory',
-    blurb: 'A limited-capacity workspace that holds and manipulates information for seconds at a time.',
+    blurb: 'A limited-capacity system for actively maintaining and manipulating information; capacity depends on task and chunking.',
     position: { x: 68, y: 55 },
   },
   {
@@ -41,25 +41,25 @@ export const humanNodes: HumanNode[] = [
   {
     id: 'hippocampus',
     label: 'Hippocampus',
-    blurb: 'A seahorse-shaped structure that indexes new experiences into long-term memory.',
+    blurb: 'A medial temporal structure that supports forming and retrieving episodic and relational memories.',
     position: { x: 140, y: 148 },
   },
   {
     id: 'attention',
     label: 'Attention',
-    blurb: 'Networks that prioritize some signals over others based on salience and goals.',
+    blurb: 'Networks that prioritize information; some attention is deliberate, and some operates without awareness.',
     position: { x: 100, y: 58 },
   },
   {
     id: 'prefrontal-cortex',
     label: 'Prefrontal Cortex',
-    blurb: 'The seat of planning, impulse control, and abstract reasoning, behind the forehead.',
+    blurb: 'Prefrontal and wider networks contribute to planning, cognitive control, and flexible reasoning.',
     position: { x: 38, y: 72 },
   },
   {
     id: 'prediction',
     label: 'Prediction',
-    blurb: 'The brain\u2019s constant habit of forecasting what will happen next, at every level of processing.',
+    blurb: 'Predictive processing is one influential family of theories about perception and action.',
     position: { x: 208, y: 152 },
   },
   {
@@ -108,7 +108,7 @@ export const llmNodes: LLMNode[] = [
   {
     id: 'embeddings',
     label: 'Embeddings',
-    blurb: 'A lookup table that turns each token ID into a vector of learned numbers.',
+    blurb: 'A learned mapping from token IDs to vectors used by the model; these vectors are not word definitions.',
   },
   {
     id: 'positional-encoding',
@@ -118,7 +118,7 @@ export const llmNodes: LLMNode[] = [
   {
     id: 'context-window',
     label: 'Context Window',
-    blurb: 'The fixed span of tokens the model can attend to for the current request.',
+    blurb: 'A model-specific limit on supplied tokens, which may include instructions, conversation, and retrieved text.',
   },
   {
     id: 'transformer-layers',
@@ -128,12 +128,12 @@ export const llmNodes: LLMNode[] = [
   {
     id: 'attention-mechanism',
     label: 'Attention Mechanism',
-    blurb: 'A weighting operation that lets each token draw information from other tokens.',
+    blurb: 'An operation that mixes information across token positions; its weights are not a complete explanation.',
   },
   {
     id: 'model-weights',
     label: 'Model Weights',
-    blurb: 'Billions of fixed numbers set during training; frozen at inference time.',
+    blurb: 'Learned parameters that usually remain fixed during ordinary inference; products can add external memory.',
   },
   {
     id: 'hidden-representations',
@@ -148,11 +148,11 @@ export const llmNodes: LLMNode[] = [
   {
     id: 'next-token-prediction',
     label: 'Next Token Prediction',
-    blurb: 'The training objective and inference step: pick the next token, one at a time.',
+    blurb: 'Many text models generate autoregressively, selecting or sampling tokens one step at a time.',
   },
   {
     id: 'output-tokens',
     label: 'Output Tokens',
-    blurb: 'The sampled tokens streamed back out, decoded from IDs into text.',
+    blurb: 'Generated token IDs are decoded into text; decoding can sample or choose deterministically.',
   },
 ]

@@ -12,12 +12,12 @@ import {
   tokensOf,
 } from '../../data/transformerDemo'
 
-const STEPS = ['Meaning', 'Attention', 'Guess'] as const
+const STEPS = ['Tokens', 'Toy weighting', 'Candidate output'] as const
 const MAX_TOKENS = 16
 
 /**
- * A simplified, three-step stand-in for how a language model turns text
- * into a guess at the next word. This is a hand-built simulation (see
+ * A simplified, three-step teaching demo for how a language model turns text
+ * into a next-token distribution. This is a hand-built simulation (see
  * `data/transformerDemo.ts`), not a real running model -- that trade-off
  * is what keeps it fast, dependency-free, and legible to a non-technical
  * audience. The honesty note at the bottom is load-bearing, not
@@ -48,7 +48,6 @@ export function TransformerExplorer() {
     () => new Set(rankedAttention.slice(0, 3).map((r) => r.index)),
     [rankedAttention],
   )
-  const topWord = rankedAttention[0]?.token ?? ''
   const atTokenLimit = tokens.length >= MAX_TOKENS
 
   function reset(text: string) {
@@ -67,6 +66,9 @@ export function TransformerExplorer() {
 
   return (
     <div>
+      <p className="mb-5 rounded-lg border border-warning/25 bg-warning/5 px-4 py-3 text-xs leading-relaxed text-ink-dim">
+        Teaching demo only: it splits on spaces, uses a recency-based weighting rule, and shows curated or placeholder candidates. No language model is running here.
+      </p>
       <div className="mb-3 flex flex-wrap gap-2">
         {PRESET_SENTENCES.map((preset) => (
           <button
@@ -96,7 +98,7 @@ export function TransformerExplorer() {
           className="flex shrink-0 items-center gap-1.5 rounded-lg border border-llm bg-llm/10 px-4 py-2 text-sm font-medium text-llm transition-colors hover:bg-llm/20"
         >
           <Play className="h-3.5 w-3.5" aria-hidden="true" />
-          Watch it think
+          Show example
         </button>
       </div>
 
@@ -107,7 +109,7 @@ export function TransformerExplorer() {
           </span>
         ))}
       </div>
-      <p className="mb-6 text-xs text-ink-faint">Your sentence, cut into pieces called tokens.</p>
+      <p className="mb-6 text-xs text-ink-faint">This demo splits on spaces. Real tokenizers use model-specific units that may be parts of words.</p>
 
       <div className="mb-5 flex gap-1.5" role="tablist" aria-label="Explainer steps">
         {STEPS.map((label, i) => (
@@ -130,7 +132,7 @@ export function TransformerExplorer() {
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.div
-            key="meaning"
+            key="tokens"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
@@ -155,7 +157,7 @@ export function TransformerExplorer() {
                 )
               })}
             </div>
-            <p className="text-xs text-ink-faint">Each token becomes a fingerprint of numbers that captures what it means.</p>
+            <p className="text-xs text-ink-faint">Real models map token IDs to learned vectors. These colored bars are placeholders, not learned embeddings or meanings.</p>
           </motion.div>
         )}
 
@@ -188,7 +190,7 @@ export function TransformerExplorer() {
                 )
               })}
             </div>
-            <p className="text-xs text-ink-faint">Before guessing the next word, it leans most on &ldquo;{topWord}&rdquo;.</p>
+            <p className="text-xs text-ink-faint">These percentages come from a recency-based toy rule, not a model's attention weights or an explanation of its output.</p>
           </motion.div>
         )}
 
@@ -202,7 +204,7 @@ export function TransformerExplorer() {
           >
             <div className="mb-4 flex items-center gap-3">
               <label htmlFor="boldness-slider" className="whitespace-nowrap text-xs text-ink-dim">
-                Boldness
+                Sampling temperature
               </label>
               <input
                 id="boldness-slider"
@@ -241,17 +243,18 @@ export function TransformerExplorer() {
                 )
               })}
             </div>
+            <p className="mb-2 text-xs text-ink-faint">The candidate list is authored for presets and arbitrary for other inputs. Temperature reshapes this illustrative distribution; it is not a measure of confidence or safety.</p>
             <p className="text-xs text-ink-faint">
               {atTokenLimit
                 ? 'Sentence is getting long — try a preset or type a new one to keep going.'
-                : 'Click a word to add it and keep going. Low boldness plays it safe, high boldness takes more chances.'}
+                : 'Click a word to add it and keep going. Higher temperature flattens the displayed distribution and can increase variation when sampling.'}
             </p>
           </motion.div>
         )}
       </AnimatePresence>
 
       <p className="mt-6 border-t border-border-soft pt-4 text-xs text-ink-faint">
-        Simplified simulation for teaching, not a real running model.
+        Real systems vary in tokenizer, model architecture, and decoding setup; this small exhibit illustrates only a few ideas.
       </p>
     </div>
   )

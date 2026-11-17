@@ -3,19 +3,14 @@ import { Brain, Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 import { useComparison } from '../../context/ComparisonContext'
 import { humanNodes, llmNodes } from '../../data/nodes'
-import { comparisons } from '../../data/comparisons'
 
 const NAV_LINKS = [
-  { href: '#explore', label: 'Compare' },
-  { href: '#diagrams', label: 'Diagrams' },
-  { href: '#predict', label: 'Predict' },
-  { href: '#process', label: 'Process' },
-  { href: '#agentic-behavior', label: 'Agentic Behavior' },
-  { href: '#matrix', label: 'Matrix' },
-  { href: '#myths', label: 'Myths' },
-  { href: '#quiz', label: 'Quiz' },
+  { href: '#explore', label: 'Explore' },
+  { href: '#diagrams', label: 'How LLMs Work' },
+  { href: '#agentic-behavior', label: 'Agents' },
   { href: '#memory', label: 'Memory' },
-  { href: '#hallucination', label: 'Hallucination' },
+  { href: '#research', label: 'Human Side' },
+  { href: '#quiz', label: 'Quiz' },
 ]
 
 interface SearchHit {
@@ -31,7 +26,7 @@ const ALL_NODES: SearchHit[] = [
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme()
-  const { selectHuman } = useComparison()
+  const { selectHuman, selectLlm } = useComparison()
   const [query, setQuery] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -43,12 +38,9 @@ export function Navbar() {
   }, [query])
 
   const goTo = (hit: SearchHit) => {
-    let humanId = hit.id
     if (hit.kind === 'llm') {
-      // Resolve to a human id so the shared selection state can pin it.
-      humanId = comparisons.find((c) => c.llmId === hit.id)?.humanId ?? hit.id
-    }
-    selectHuman(humanId)
+      selectLlm(hit.id)
+    } else selectHuman(hit.id)
     setQuery('')
     setSearchOpen(false)
     document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -59,10 +51,10 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
         <a href="#top" className="flex items-center gap-2 text-sm font-semibold text-ink">
           <Brain className="h-4 w-4 text-brain" aria-hidden="true" />
-          Brain vs. LLM
+          Brain + LLMs
         </a>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Section navigation">
+        <nav className="hidden items-center gap-4 2xl:flex" aria-label="Section navigation">
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="text-sm text-ink-dim transition-colors hover:text-ink">
               {link.label}
@@ -118,7 +110,7 @@ export function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-ink-dim lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-ink-dim 2xl:hidden"
           >
             {mobileOpen ? <X className="h-4 w-4" aria-hidden="true" /> : <Menu className="h-4 w-4" aria-hidden="true" />}
           </button>
@@ -126,7 +118,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-border-soft px-6 py-4 lg:hidden" aria-label="Section navigation (mobile)">
+        <nav className="border-t border-border-soft px-6 py-4 2xl:hidden" aria-label="Section navigation (mobile)">
           <div className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
               <a

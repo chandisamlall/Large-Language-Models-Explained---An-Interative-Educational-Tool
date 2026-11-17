@@ -3,7 +3,7 @@ import { ChevronDown, Brain, Cpu } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+    <section className="relative flex min-h-[82vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
       {/* Ambient background: soft twin glows echoing the brain/LLM accent split, plus a faint dot grid for the "exhibit hall" texture. */}
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]" aria-hidden="true" />
       <div

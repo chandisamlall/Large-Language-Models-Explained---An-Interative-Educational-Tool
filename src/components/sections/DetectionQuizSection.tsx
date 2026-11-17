@@ -7,7 +7,7 @@ import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 import { cn } from '../../utils/cn'
 
-const CATEGORIES: QuizCategory[] = ['Accurate', 'Partially Accurate', 'Anthropomorphic']
+const CATEGORIES: QuizCategory[] = ['Accurate', 'Partially Accurate', 'Misleading']
 
 export function DetectionQuizSection() {
   const [answers, setAnswers] = useState<Record<string, QuizCategory>>({})
@@ -21,12 +21,12 @@ export function DetectionQuizSection() {
   const reset = () => setAnswers({})
 
   return (
-    <section id="quiz" className="border-y border-border-soft bg-bg-raised/40 py-16 sm:py-20">
+    <section id="quiz" className="border-y border-border-soft bg-bg-raised/40 py-12 sm:py-16">
       <div className="mx-auto max-w-4xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Test Yourself"
-            title="Accurate, partial, or anthropomorphic?"
+            title="Accurate, partial, or misleading?"
             description="Classify each statement. There's no penalty for a wrong guess — the explanation is where the learning happens."
           />
           <div className="mb-1 flex items-center gap-3">

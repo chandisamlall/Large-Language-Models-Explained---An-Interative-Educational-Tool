@@ -86,12 +86,12 @@ export function ProcessComparisonSection() {
   }
 
   return (
-    <section id="process" className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <section id="process" className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
           eyebrow="Play It Through"
-          title="The same moment, two processes"
-          description="Watch each system respond to incoming language, one stage at a time. The step counts differ on purpose — collapsing them to match would flatten a real difference."
+          title="Two simplified processing sketches"
+          description="The human track groups interacting processes into a teaching sketch, not a fixed brain sequence. The model track shows a common text-only autoregressive path; tools and persistent memory belong to a surrounding application or agent."
         />
         <button
           type="button"
@@ -104,9 +104,9 @@ export function ProcessComparisonSection() {
       </div>
 
       <div className="mt-12 flex flex-col gap-10 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:p-8">
-        <Track title="Human Brain" accent="brain" steps={humanProcess} tick={tick} />
+        <Track title="Human response (illustrative)" accent="brain" steps={humanProcess} tick={tick} />
         <div className="hidden w-px bg-border-soft sm:block" aria-hidden="true" />
-        <Track title="Large Language Model" accent="llm" steps={llmProcess} tick={tick} />
+        <Track title="Text-only autoregressive model" accent="llm" steps={llmProcess} tick={tick} />
       </div>
     </section>
   )

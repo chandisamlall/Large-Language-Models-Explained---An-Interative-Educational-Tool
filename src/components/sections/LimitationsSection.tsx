@@ -3,16 +3,16 @@ import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 
 const STATEMENTS = [
-  'Human brains are biological \u2014 living tissue, shaped by evolution, chemistry, and embodied experience.',
-  'Large language models are statistical models \u2014 fixed weights trained to predict the next token in a sequence.',
-  'Every analogy on this page is educational, offered to build intuition, not a claim of mechanistic equivalence.',
-  'No comparison here implies a one-to-one mapping. A concept sharing a name with a brain region does not mean it works the same way.',
-  'Where a similarity score is low, that\u2019s the point being made \u2014 not a gap to be explained away.',
+  'Brains are biological systems with many interacting processes; language models are computational systems whose behavior depends on training and deployment.',
+  'The comparisons point to selected functional overlaps. They do not establish shared mechanisms or one-to-one mappings.',
+  'The analogy labels are editorial judgments about usefulness, not measured similarity scores.',
+  'A text-only model receives supplied tokens. Tools, retrieval, and cross-session memory may come from the surrounding application or agent.',
+  'Fluent or emotional wording alone is not evidence of subjective experience; this exhibit does not claim to settle the broader question of machine experience.',
 ]
 
 export function LimitationsSection() {
   return (
-    <section id="limitations" className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <section id="limitations" className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
       <SectionHeading
         eyebrow="Read This Part"
         title="What this exhibit is not saying"

@@ -1,25 +1,26 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Lightbulb, ShieldAlert, Sparkles, MessageCircleWarning, Compass } from 'lucide-react'
 import type { ReactNode } from 'react'
-import type { Comparison } from '../../data/types'
+import type { Comparison, LLMNode } from '../../data/types'
 import { humanNodes, llmNodes } from '../../data/nodes'
-import { SimilarityBadgePill } from '../ui/SimilarityBadge'
+import { AnalogyBadge } from '../ui/AnalogyBadge'
 
 interface InfoCardProps {
   comparison: Comparison | null
+  unmatchedLlmNode?: LLMNode | null
 }
 
 function findLabel(id: string, source: { id: string; label: string }[]) {
   return source.find((n) => n.id === id)?.label ?? id
 }
 
-export function InfoCard({ comparison }: InfoCardProps) {
+export function InfoCard({ comparison, unmatchedLlmNode = null }: InfoCardProps) {
   return (
     <div className="relative min-h-[220px]">
       <AnimatePresence mode="wait">
         {comparison ? (
           <motion.div
-            key={comparison.humanId + comparison.llmId}
+            key={`${comparison.humanId}-${comparison.llmId ?? 'none'}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -30,13 +31,17 @@ export function InfoCard({ comparison }: InfoCardProps) {
               <div className="flex flex-wrap items-center gap-2 text-lg font-semibold">
                 <span className="text-brain">{findLabel(comparison.humanId, humanNodes)}</span>
                 <ArrowRight className="h-4 w-4 text-ink-faint" aria-hidden="true" />
-                <span className="text-llm">{findLabel(comparison.llmId, llmNodes)}</span>
+                {comparison.llmId ? (
+                  <span className="text-llm">{findLabel(comparison.llmId, llmNodes)}</span>
+                ) : (
+                  <span className="text-ink-dim">No close analogue in a text-only LLM</span>
+                )}
               </div>
-              <SimilarityBadgePill score={comparison.similarity} />
+              <AnalogyBadge rating={comparison.analogy} />
             </div>
 
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
-              <InfoBlock icon={Sparkles} tone="text-success" title="Why they seem similar">
+              <InfoBlock icon={Sparkles} tone="text-success" title="What this comparison shows">
                 {comparison.whySimilar}
               </InfoBlock>
               <InfoBlock icon={ShieldAlert} tone="text-warning" title="Major differences">
@@ -65,6 +70,22 @@ export function InfoCard({ comparison }: InfoCardProps) {
                 {comparison.example}
               </p>
             </div>
+          </motion.div>
+        ) : unmatchedLlmNode ? (
+          <motion.div
+            key={`unmatched-${unmatchedLlmNode.id}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-2xl border border-border bg-card p-6 sm:p-8"
+          >
+            <p className="font-mono-data text-xs uppercase tracking-[0.15em] text-llm">LLM component</p>
+            <h3 className="mt-2 text-lg font-semibold text-ink">{unmatchedLlmNode.label}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-dim">{unmatchedLlmNode.blurb}</p>
+            <p className="mt-4 border-t border-border-soft pt-4 text-sm text-ink-faint">
+              No direct human comparison is included for this text-only model component.
+            </p>
           </motion.div>
         ) : (
           <motion.div

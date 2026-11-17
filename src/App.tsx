@@ -7,12 +7,11 @@ import { DiagramsSection } from './components/sections/DiagramsSection'
 import { TransformerExplainerSection } from './components/sections/TransformerExplainerSection'
 import { ProcessComparisonSection } from './components/sections/ProcessComparisonSection'
 import { AgenticBehaviorSection } from './components/sections/AgenticBehaviorSection'
-import { SimilarityMatrixSection } from './components/sections/SimilarityMatrixSection'
-import { MythVsRealitySection } from './components/sections/MythVsRealitySection'
-import { DetectionQuizSection } from './components/sections/DetectionQuizSection'
 import { MemoryComparisonSection } from './components/sections/MemoryComparisonSection'
-import { HallucinationSection } from './components/sections/HallucinationSection'
 import { ResearchSection } from './components/sections/ResearchSection'
+import { MythVsRealitySection } from './components/sections/MythVsRealitySection'
+import { HallucinationSection } from './components/sections/HallucinationSection'
+import { DetectionQuizSection } from './components/sections/DetectionQuizSection'
 import { LimitationsSection } from './components/sections/LimitationsSection'
 import { Footer } from './components/sections/Footer'
 
@@ -35,12 +34,11 @@ export default function App() {
             <TransformerExplainerSection />
             <ProcessComparisonSection />
             <AgenticBehaviorSection />
-            <SimilarityMatrixSection />
-            <MythVsRealitySection />
-            <DetectionQuizSection />
             <MemoryComparisonSection />
-            <HallucinationSection />
             <ResearchSection />
+            <MythVsRealitySection />
+            <HallucinationSection />
+            <DetectionQuizSection />
             <LimitationsSection />
           </main>
           <Footer />

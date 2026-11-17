@@ -1,19 +1,14 @@
 /**
  * Shared type definitions for the exhibit's comparison data.
  *
- * Keeping these in one place means every component — the diagrams,
- * the info card, the matrix, the quiz — reads from the same shape,
+ * Keeping these in one place means the explorer and related views
+ * read from the same comparison records,
  * so new comparisons can be added in `comparisons.ts` without
  * touching any component code.
  */
 
-/** How strong the analogy is, bucketed from the 0-100 similarity score. */
-export type SimilarityBadge = 'High' | 'Moderate' | 'Low'
-
-/** How confident domain experts would be in the mapping itself (distinct
- *  from the similarity score — a mapping can be low-confidence but still
- *  the "closest available" analogue). */
-export type ConfidenceLevel = 'High' | 'Medium' | 'Low'
+/** Editorial label for functional overlap; it is not a measured score. */
+export type AnalogyRating = 'Useful analogy' | 'Limited analogy' | 'No direct analogue'
 
 export interface HumanNode {
   id: string
@@ -33,10 +28,10 @@ export interface LLMNode {
 export interface Comparison {
   /** Matches a HumanNode id. */
   humanId: string
-  /** Matches an LLMNode id. */
-  llmId: string
-  similarity: number // 0-100
-  confidence: ConfidenceLevel
+  /** Null when a text-only LLM has no close counterpart for this function. */
+  llmId: string | null
+  /** Editorial description of functional overlap, not a quantitative score. */
+  analogy: AnalogyRating
   whySimilar: string
   keyDifferences: string[]
   misconception: string
@@ -53,7 +48,7 @@ export interface MythCard {
   supportingExplanation: string
 }
 
-export type QuizCategory = 'Accurate' | 'Partially Accurate' | 'Anthropomorphic'
+export type QuizCategory = 'Accurate' | 'Partially Accurate' | 'Misleading'
 
 export interface QuizStatement {
   id: string
@@ -66,12 +61,5 @@ export interface ResearchTopic {
   id: string
   title: string
   explanation: string
-}
-
-/** Derives the badge tier from a raw similarity score, per the exhibit's
- *  fixed legend (Green 70-100 / Yellow 40-69 / Red 0-39). */
-export function similarityBadge(score: number): SimilarityBadge {
-  if (score >= 70) return 'High'
-  if (score >= 40) return 'Moderate'
-  return 'Low'
+  sources: { label: string; url: string }[]
 }

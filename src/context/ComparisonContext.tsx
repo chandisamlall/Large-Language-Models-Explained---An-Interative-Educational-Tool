@@ -20,9 +20,8 @@ interface ComparisonContextValue {
   hoverLlm: (id: string | null) => void
   /** Click/tap/Enter a human node: pins the selection so it survives hover-out. */
   selectHuman: (id: string) => void
-  /** Directly pin a specific comparison (used by the similarity matrix, which
-   *  already knows the exact human+llm pair for a row). */
-  selectComparison: (humanId: string) => void
+  /** Click/tap/Enter an LLM node, including components with no human match. */
+  selectLlm: (id: string) => void
   clearSelection: () => void
 }
 
@@ -30,7 +29,7 @@ const ComparisonContext = createContext<ComparisonContextValue | null>(null)
 
 function llmIdsFor(humanId: string): string[] {
   const c = comparisons.find((cmp) => cmp.humanId === humanId)
-  return c ? [c.llmId] : []
+  return c?.llmId ? [c.llmId] : []
 }
 
 function humanIdsFor(llmId: string): string[] {
@@ -39,6 +38,7 @@ function humanIdsFor(llmId: string): string[] {
 
 export function ComparisonProvider({ children }: { children: ReactNode }) {
   const [pinnedHumanId, setPinnedHumanId] = useState<string | null>(null)
+  const [pinnedLlmId, setPinnedLlmId] = useState<string | null>(null)
   const [hoveredHumanId, setHoveredHumanId] = useState<string | null>(null)
   const [hoveredLlmId, setHoveredLlmId] = useState<string | null>(null)
 
@@ -64,8 +64,13 @@ export function ComparisonProvider({ children }: { children: ReactNode }) {
         activeComparison: comparison,
       }
     }
+    if (pinnedLlmId) {
+      const humanIds = humanIdsFor(pinnedLlmId)
+      const comparison = comparisons.find((c) => c.llmId === pinnedLlmId) ?? null
+      return { activeHumanIds: humanIds, activeLlmIds: [pinnedLlmId], activeComparison: comparison }
+    }
     return { activeHumanIds: [] as string[], activeLlmIds: [] as string[], activeComparison: null }
-  }, [hoveredHumanId, hoveredLlmId, pinnedHumanId])
+  }, [hoveredHumanId, hoveredLlmId, pinnedHumanId, pinnedLlmId])
 
   const hoverHuman = useCallback((id: string | null) => {
     setHoveredHumanId(id)
@@ -78,15 +83,18 @@ export function ComparisonProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const selectHuman = useCallback((id: string) => {
+    setPinnedLlmId(null)
     setPinnedHumanId((current) => (current === id ? null : id))
   }, [])
 
-  const selectComparison = useCallback((humanId: string) => {
-    setPinnedHumanId(humanId)
+  const selectLlm = useCallback((id: string) => {
+    setPinnedHumanId(null)
+    setPinnedLlmId((current) => (current === id ? null : id))
   }, [])
 
   const clearSelection = useCallback(() => {
     setPinnedHumanId(null)
+    setPinnedLlmId(null)
     setHoveredHumanId(null)
     setHoveredLlmId(null)
   }, [])
@@ -95,11 +103,11 @@ export function ComparisonProvider({ children }: { children: ReactNode }) {
     activeComparison,
     activeHumanIds,
     activeLlmIds,
-    isPinned: pinnedHumanId !== null && hoveredHumanId === null && hoveredLlmId === null,
+    isPinned: (pinnedHumanId !== null || pinnedLlmId !== null) && hoveredHumanId === null && hoveredLlmId === null,
     hoverHuman,
     hoverLlm,
     selectHuman,
-    selectComparison,
+    selectLlm,
     clearSelection,
   }
 

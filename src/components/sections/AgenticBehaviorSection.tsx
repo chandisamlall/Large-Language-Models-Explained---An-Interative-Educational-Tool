@@ -14,8 +14,8 @@ const COMPONENTS: {
     name: 'The Model',
     icon: Brain,
     description:
-      'The core reasoning engine that interprets the goal, plans, and evaluates results. For example, Claude 3.5 Sonnet is a Claude model.',
-    tooltip: 'The model supplies the agent’s learned knowledge and reasoning. It decides what to do with the goal and the information returned by tools.',
+      'The language model that interprets the goal and proposes or evaluates next steps. The specific model depends on the product.',
+    tooltip: 'The model supplies learned capabilities; the surrounding system provides the tools, state, and runtime that make an agent.',
   },
   {
     name: 'The Tools',
@@ -28,8 +28,8 @@ const COMPONENTS: {
     name: 'The Harness',
     icon: ShieldCheck,
     description:
-      'The system instructions and guardrails that define the agent’s boundaries. For example: “Never execute a database deletion without user approval.”',
-    tooltip: 'The harness supplies the instructions and safeguards the model follows, including when to pause for human approval.',
+      'The runtime that coordinates model calls, tools, state, and safeguards. For example, it can require approval before a database deletion.',
+    tooltip: 'Instructions are one part of a harness. Tool permissions, validation, and approval checks can also be enforced by the surrounding code.',
   },
   {
     name: 'The Environment',
@@ -37,6 +37,29 @@ const COMPONENTS: {
     description:
       'Where the agent runs and what context it can access. Claude Code on a developer’s machine may see different files and systems from Claude operating inside a corporate network.',
     tooltip: 'The environment determines where the agent runs and which files, websites, and systems are available to it.',
+  },
+]
+
+const COMPARISON_ROWS = [
+  {
+    dimension: 'Interaction model',
+    standard: 'A prompt leads to a response.',
+    agentic: 'A goal can lead to a repeated plan, action, and feedback cycle.',
+  },
+  {
+    dimension: 'Workflow',
+    standard: 'A person directs each step.',
+    agentic: 'The system can plan and carry out steps within its configured scope.',
+  },
+  {
+    dimension: 'Error handling',
+    standard: 'A person may need to correct or redirect it.',
+    agentic: 'It can inspect results and retry or adapt; success depends on the model and safeguards.',
+  },
+  {
+    dimension: 'Capabilities',
+    standard: 'Generates text or other model outputs.',
+    agentic: 'May call tools such as APIs or file systems when the application grants access.',
   },
 ]
 
@@ -87,14 +110,43 @@ const LOOP_STEPS = [
 
 export function AgenticBehaviorSection() {
   return (
-    <section id="agentic-behavior" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:py-20">
+    <section id="agentic-behavior" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-12 sm:py-16">
       <SectionHeading
         eyebrow="Agentic Behavior"
-        title="Anthropic’s Claude: The Four Components of an Agent"
-        description="According to Anthropic, an agent’s behavior depends on four pieces working together: its model, tools, harness, and environment."
+        title="Standard AI vs. Agentic AI"
+        description="A standard model responds to a prompt. An agentic system can use a model in a goal-directed loop with tools and feedback."
       />
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-card">
+        <table className="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead className="bg-bg-raised text-ink">
+            <tr>
+              <th scope="col" className="px-5 py-4 font-semibold">Dimension</th>
+              <th scope="col" className="px-5 py-4 font-semibold text-brain">Standard AI (Reactive)</th>
+              <th scope="col" className="px-5 py-4 font-semibold text-llm">Agentic AI (Proactive)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {COMPARISON_ROWS.map((row) => (
+              <tr key={row.dimension} className="border-t border-border-soft align-top">
+                <th scope="row" className="whitespace-nowrap px-5 py-4 font-medium text-ink">{row.dimension}</th>
+                <td className="px-5 py-4 leading-relaxed text-ink-dim">{row.standard}</td>
+                <td className="px-5 py-4 leading-relaxed text-ink-dim">{row.agentic}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-12">
+        <p className="font-mono-data text-xs uppercase tracking-[0.18em] text-llm">Anthropic’s Claude</p>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink sm:text-2xl">The Four Components of an Agent</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-dim">
+          An agent’s behavior depends on the model, tools, harness, and environment working together.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {COMPONENTS.map((component, index) => {
           const Icon = component.icon
           return (
@@ -128,13 +180,13 @@ export function AgenticBehaviorSection() {
       </div>
 
       <Reveal delay={0.12}>
-        <div className="mt-16 border-t border-border-soft pt-12 sm:mt-20 sm:pt-16">
+        <div className="mt-12 border-t border-border-soft pt-10 sm:mt-16 sm:pt-12">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="font-mono-data text-xs uppercase tracking-[0.2em] text-llm">Plan · Act · Observe · Adjust</p>
               <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">The Agentic Reasoning Loop</h3>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim sm:text-base">
-                A Claude agent works through a self-directed loop. Hover over or focus a step to see what happens there.
+                This simplified loop shows how an agent can work through a task. Products differ; hover over or focus a step to see an example.
               </p>
             </div>
             <a

@@ -3,72 +3,37 @@ import type { QuizStatement } from './types'
 export const quizStatements: QuizStatement[] = [
   {
     id: 'q1',
-    statement: 'The AI feels guilty.',
-    correct: 'Anthropomorphic',
+    statement: 'A context window plays a role somewhat like working memory.',
+    correct: 'Partially Accurate',
     explanation:
-      'Guilt is a felt emotional state tied to self-awareness and social consequence. A model can generate apologetic phrasing, but nothing is experienced.',
+      'Both make information available for a current task. A context window is supplied text with a token limit; working memory is an active, task-sensitive human cognitive system.',
   },
   {
     id: 'q2',
-    statement: 'The AI predicts the next word.',
-    correct: 'Accurate',
+    statement: 'An attention heatmap tells me why a model produced its answer.',
+    correct: 'Misleading',
     explanation:
-      'This is a literal, mechanical description of the core training objective and inference procedure of most language models.',
+      'Attention weights describe part of a computation, but they are not a complete or necessarily faithful explanation of a model output.',
   },
   {
     id: 'q3',
-    statement: 'The AI remembers childhood.',
-    correct: 'Anthropomorphic',
+    statement: 'A product can recall a preference across chats without changing the base model weights.',
+    correct: 'Accurate',
     explanation:
-      'A model has no childhood, no episodic history, and no autobiographical memory \u2014 it has training data and fixed weights.',
+      'An application can save information externally and provide it again in a later model call. That is product-level memory, not necessarily model training.',
   },
   {
     id: 'q4',
-    statement: 'The AI has goals.',
-    correct: 'Anthropomorphic',
+    statement: 'Tool use and persistent memory belong to the base model alone.',
+    correct: 'Misleading',
     explanation:
-      'Behavior can look goal-directed, but there is no persistent internal state representing a desired future outcome the way a goal implies.',
+      'Tools, retrieval, and persistent storage are usually provided by the agent or application around the model, even though the model may help decide when to use them.',
   },
   {
     id: 'q5',
-    statement: 'The AI processes probabilities.',
+    statement: 'LLM hallucinations and human confabulations can look similar while arising from different processes.',
     correct: 'Accurate',
     explanation:
-      'Every output token is sampled from a computed probability distribution \u2014 this is a precise, mechanical description.',
-  },
-  {
-    id: 'q6',
-    statement: 'The AI is paying attention to the most relevant part of my message.',
-    correct: 'Partially Accurate',
-    explanation:
-      'Attention weights genuinely do concentrate on certain tokens more than others \u2014 that part is real and measurable. But it is a mathematical weighting, not conscious focus.',
-  },
-  {
-    id: 'q7',
-    statement: 'The AI is lying to me.',
-    correct: 'Anthropomorphic',
-    explanation:
-      'Lying requires knowing the truth and choosing to state otherwise with intent to deceive. A model producing a false statement usually reflects an error in what was statistically likely, not a deliberate deception.',
-  },
-  {
-    id: 'q8',
-    statement: 'The AI adjusts its output based on the words that came before.',
-    correct: 'Accurate',
-    explanation:
-      'This describes how autoregressive generation and the attention mechanism actually work \u2014 each token is conditioned on everything before it.',
-  },
-  {
-    id: 'q9',
-    statement: 'The AI gets tired after a long conversation.',
-    correct: 'Anthropomorphic',
-    explanation:
-      'There is no fatigue mechanism. Quality can degrade in very long contexts for architectural reasons, but nothing resembling tiredness is involved.',
-  },
-  {
-    id: 'q10',
-    statement: 'The AI\u2019s response depends on patterns learned from its training data.',
-    correct: 'Accurate',
-    explanation:
-      'This is a direct, accurate description of how a trained model\u2019s weights come to shape its output.',
+      'The terms describe different systems and causes. A surface resemblance is useful to discuss, but it does not establish a shared mechanism.',
   },
 ]
